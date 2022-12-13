@@ -3,6 +3,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import AdminPage from "../pages/AdminPage";
 
 
 const router = createBrowserRouter([
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <div> Hello Admin </div>,
+        element: <AdminPage />,
     },
     {
         path: "/doctor",
