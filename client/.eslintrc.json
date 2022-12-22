@@ -5,9 +5,10 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
         "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
-        "plugin:import/recommended"
+        "plugin:react/jsx-runtime"
     ],
     "overrides": [
     ],
@@ -19,5 +20,11 @@
         "react"
     ],
     "rules": {
+        "import/no-unresolved": [2, {"commonjs": false, "amd": false}],
+        "import/named": 2,
+        "import/namespace": 2,
+        "import/default": 2,
+        "import/export": 2,
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
     }
 }
