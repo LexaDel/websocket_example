@@ -1,4 +1,4 @@
-import { Children, Component } from "react";
+import { Component } from "react";
 import './PageTemplate.sass';
 
 class PageTemplate extends Component {
@@ -6,7 +6,7 @@ class PageTemplate extends Component {
         const { children } = this.props;
 
         return (
-            <div class="pageTemplate">
+            <div className="pageTemplate">
                 {children}
             </div>
         )

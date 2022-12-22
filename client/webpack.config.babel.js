@@ -1,9 +1,9 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const DartSass = require('sass');
-const path = require('path');
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import DartSass from 'sass';
+import path from 'path';
 
-module.exports = {
+export default {
     entry: [
         'regenerator-runtime/runtime',
         './src/index.js'
