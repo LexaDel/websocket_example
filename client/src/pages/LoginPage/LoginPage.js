@@ -1,34 +1,19 @@
 import { Form, Input, Button } from 'antd';
-import { Component } from 'react';
-import axios from 'axios';
+import { Component } from 'react'; 
 import PageTemplate from '../PageTemplate/PageTemplate';
 import './LoginPage.sass';
 import { Navigate } from 'react-router';
+import { connect } from 'react-redux';
+import { loginUserActions } from '../../store/user/user.actions';
+import { PropTypes } from 'prop-types';
+import { getUserInfo } from '../../store/user/user.selectors';
 
 class LoginPage extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isAuth: false
-        }
-    }
-
     onLogin = (values) => {
+        const { login } = this.props;
         const { usernameOrEmail, password } = values;
 
-        axios.post('api/auth/login', {
-              usernameOrEmail,
-              password
-          })
-          .then((response) => {
-            if (response.status === 200) {
-                this.setState({
-                    isAuth: true,
-                });
-            }
-          }).catch((error) => {
-            console.log(error.toJSON());
-          });
+        login({ usernameOrEmail, password });
     }
 
     onLoginFailed = () => {
@@ -36,8 +21,8 @@ class LoginPage extends Component {
     }
 
     render() {
-        const { isAuth } = this.state;
-        if (isAuth) {
+        const { userInfo } = this.props;
+        if (userInfo) {
             return <Navigate to="/" />;
         }
 
@@ -98,4 +83,13 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage;
+LoginPage.propTypes = {
+    userInfo: PropTypes.shape(),
+    login: PropTypes.func.isRequired,
+}
+
+export default connect((state) => ({
+    userInfo: getUserInfo(state),
+}), {
+    login: loginUserActions.triggerAC,
+})(LoginPage);

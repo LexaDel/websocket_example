@@ -1,51 +1,26 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { Component } from 'react';
-import axios from 'axios';
-import { Spin } from 'antd';
+import { connect } from 'react-redux';
+import { getUserInfo, getUserStatus } from '../store/user/user.selectors';
+import { PropTypes } from 'prop-types';
 
 class ProtectedRoute extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            isAuth: false,
-            status: {
-                loading: true,
-            }
-        }
-    }
-
-    componentDidMount() {
-        axios.get('api/auth', {
-            headers:{
-                "X-Verification-Code": 'verification_code'
-            }
-        }).then((response) => {
-            if (response.status === 200) {
-                this.setState({
-                    isAuth: true,
-                    status: {
-                        loading: false,
-                    }
-                });
-            }
-        }).catch(() => {
-            this.setState({
-                status: {
-                    loading: false,
-                }
-            });
-        });
-    }
-
     render() {
-        const { isAuth, status } = this.state;
+        const { userInfo, status } = this.props;
         if (status.loading) {
-            return <Spin />;
+            return <Outlet />;
         }
 
-        return isAuth ? <Outlet /> : <Navigate to='/login' />
+        return userInfo ? <Outlet /> : <Navigate to='/login' />
     }
 }
 
-export default ProtectedRoute;
+ProtectedRoute.propTypes = {
+    userInfo: PropTypes.shape(),
+    status: PropTypes.shape(),
+}
+
+export default connect((state) => ({
+    userInfo: getUserInfo(state),
+    status: getUserStatus(state),
+}), {})(ProtectedRoute);
