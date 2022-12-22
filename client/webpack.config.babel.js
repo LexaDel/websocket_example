@@ -2,6 +2,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import DartSass from 'sass';
 import path from 'path';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+
 
 export default {
     entry: [
@@ -17,6 +19,12 @@ export default {
         host: '0.0.0.0',
         port: 80,
         historyApiFallback: true,
+        onBeforeSetupMiddleware({app}) {
+            app.use('/api', createProxyMiddleware({
+                target: 'http://localhost:3000',
+                changeOrigin: true,
+            }))
+        }
     },
     module: {
         rules: [

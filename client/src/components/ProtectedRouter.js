@@ -1,14 +1,51 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Component } from 'react';
+import axios from 'axios';
+import { Spin } from 'antd';
 
-const ProtectedRoute = () => (
-      sessionStorage.getItem("token")
-        ? <Outlet />
-        : <Navigate to='/register' />
-);
+class ProtectedRoute extends Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            isAuth: false,
+            status: {
+                loading: true,
+            }
+        }
+    }
 
-ProtectedRoute.propTypes = {
-    component: PropTypes.node,
+    componentDidMount() {
+        axios.get('api/auth', {
+            headers:{
+                "X-Verification-Code": 'verification_code'
+            }
+        }).then((response) => {
+            if (response.status === 200) {
+                this.setState({
+                    isAuth: true,
+                    status: {
+                        loading: false,
+                    }
+                });
+            }
+        }).catch(() => {
+            this.setState({
+                status: {
+                    loading: false,
+                }
+            });
+        });
+    }
+
+    render() {
+        const { isAuth, status } = this.state;
+        if (status.loading) {
+            return <Spin />;
+        }
+
+        return isAuth ? <Outlet /> : <Navigate to='/login' />
+    }
 }
 
 export default ProtectedRoute;
