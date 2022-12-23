@@ -1,4 +1,5 @@
 import { Form, Input, Button } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Component } from 'react'; 
 import PageTemplate from '../PageTemplate/PageTemplate';
 import './LoginPage.sass';
@@ -29,14 +30,8 @@ class LoginPage extends Component {
         return (
             <PageTemplate>
                 <Form
-                    className='loginPage'
+                    className="login-form"
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 8,
-                    }}
                     initialValues={{
                         remember: true,
                     }}
@@ -44,38 +39,26 @@ class LoginPage extends Component {
                     onFinishFailed={this.onLoginFailed}
                 >
                     <Form.Item
-                        label="Username Or Email"
-                        name="usernameOrEmail"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'Please input your username or email!',
-                        },
-                        ]}
+                        name="username"
+                        rules={[{ required: true, message: 'Please input your Username!' }]}
                     >
-                        <Input />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
                     <Form.Item
-                        label="Password"
                         name="password"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                        ]}
+                        rules={[{ required: true, message: 'Please input your Password!' }]}
                     >
-                        <Input.Password />
+                        <Input
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="Password"
+                        />
                     </Form.Item>
-                    <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
-                    >
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="login-form-button">
+                            Log in
+                        </Button>
+                        Or <a href="/register">register now!</a>
                     </Form.Item>
                 </Form>
             </PageTemplate>
