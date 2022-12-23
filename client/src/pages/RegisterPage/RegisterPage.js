@@ -1,7 +1,8 @@
 import { Component } from "react";
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 import PageTemplate from "../PageTemplate/PageTemplate";
 import './RegisterPage.sass';
+import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 
 class RegisterPage extends Component {
     onFinish = (values) => {
@@ -17,13 +18,6 @@ class RegisterPage extends Component {
             <PageTemplate>
                 <Form
                     className="registerPage"
-                    name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 8,
-                    }}
                     initialValues={{
                         remember: true,
                     }}
@@ -32,21 +26,14 @@ class RegisterPage extends Component {
                     autoComplete="off"
                 >
                     <Form.Item
-                        label="Username"
                         name="username"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'Please input your username!',
-                        },
-                        ]}
+                        rules={[{ required: true, message: 'Please input your Username!' }]}
                     >
-                        <Input />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
 
                     <Form.Item
                         name="email"
-                        label="E-mail"
                         rules={[
                         {
                             type: 'email',
@@ -58,42 +45,31 @@ class RegisterPage extends Component {
                         },
                         ]}
                     >
-                        <Input />
+                        <Input 
+                            prefix={<MailOutlined className="site-form-item-icon" />}
+                            placeholder="Email"
+                        />
                     </Form.Item>
 
                     <Form.Item
-                        label="Password"
                         name="password"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                        ]}
+                        rules={[{ required: true, message: 'Please input your Password!' }]}
                     >
-                        <Input.Password />
+                        <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                        />
                     </Form.Item>
-
-                    <Form.Item
-                        name="remember"
-                        valuePropName="checked"
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
+                    <Form.Item>
+                    <Button 
+                        className="registerButton"
+                        type="primary" 
+                        htmlType="submit"
                     >
-                        <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
-
-                    <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
-                    >
-                    <Button type="primary" htmlType="submit">
-                        Submit
+                        Register
                     </Button>
+                    Or <a href="/login">log in</a>
                     </Form.Item>
                 </Form>
             </PageTemplate>
