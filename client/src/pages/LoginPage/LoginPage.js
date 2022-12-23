@@ -7,14 +7,14 @@ import { Navigate } from 'react-router';
 import { connect } from 'react-redux';
 import { loginUserActions } from '../../store/user/user.actions';
 import { PropTypes } from 'prop-types';
-import { getUserInfo } from '../../store/user/user.selectors';
+import { getErrorMessage, getUserInfo, getUserStatus } from '../../store/user/user.selectors';
 
 class LoginPage extends Component {
     onLogin = (values) => {
         const { login } = this.props;
-        const { usernameOrEmail, password } = values;
+        const { username, password } = values;
 
-        login({ usernameOrEmail, password });
+        login({ username, password });
     }
 
     onLoginFailed = () => {
@@ -22,7 +22,7 @@ class LoginPage extends Component {
     }
 
     render() {
-        const { userInfo } = this.props;
+        const { userInfo, status, errorMessage } = this.props;
         if (userInfo) {
             return <Navigate to="/" />;
         }
@@ -40,6 +40,8 @@ class LoginPage extends Component {
                 >
                     <Form.Item
                         name="username"
+                        validateStatus={errorMessage && 'error'}
+                        help={errorMessage}
                         rules={[{ required: true, message: 'Please input your Username!' }]}
                     >
                         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
@@ -49,13 +51,19 @@ class LoginPage extends Component {
                         rules={[{ required: true, message: 'Please input your Password!' }]}
                     >
                         <Input
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        type="password"
-                        placeholder="Password"
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button 
+                            type="primary" 
+                            htmlType="submit" 
+                            className="login-form-button"
+                            loading={status.processing}
+                            
+                        >
                             Log in
                         </Button>
                         Or <a href="/register">register now!</a>
@@ -69,10 +77,14 @@ class LoginPage extends Component {
 LoginPage.propTypes = {
     userInfo: PropTypes.shape(),
     login: PropTypes.func.isRequired,
+    status: PropTypes.shape().isRequired,
+    errorMessage: PropTypes.string,
 }
 
 export default connect((state) => ({
     userInfo: getUserInfo(state),
+    status: getUserStatus(state),
+    errorMessage: getErrorMessage(state),
 }), {
     login: loginUserActions.triggerAC,
 })(LoginPage);

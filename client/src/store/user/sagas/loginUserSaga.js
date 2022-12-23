@@ -3,7 +3,7 @@ import { call, put } from 'redux-saga/effects';
 import { loginUserActions } from '../user.actions';
 
 export default function* loginUserSaga(action) {
-    const { usernameOrEmail, password } = action.payload;
+    const { username, password } = action.payload;
 
     yield put(loginUserActions.startAC());
 
@@ -12,13 +12,13 @@ export default function* loginUserSaga(action) {
             method: 'post',
             url: 'api/auth/login',
             data: {
-                usernameOrEmail,
+                usernameOrEmail: username,
                 password
             }
         });
 
         yield put(loginUserActions.successAC(response.data));
     } catch(err) {
-        yield put(loginUserActions.failAC());
+        yield put(loginUserActions.failAC(err.response.data));
     }
 }

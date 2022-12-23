@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 import AuthChecker from "./AuthChecker";
 import { checkUserActions } from '../../store/user/user.actions';
-import { getUserStatus } from '../../store/user/user.selectors';
+import { getStatusChecking } from '../../store/user/user.selectors';
 
 export default connect(
     (state) => ({
-        status: getUserStatus(state),
+        status: getStatusChecking(state),
     }),
     {
         checkUser: checkUserActions.triggerAC,

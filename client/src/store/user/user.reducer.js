@@ -7,28 +7,31 @@ export const userReducerPath = 'user';
 const initialState = {
     info: undefined,
     status: STATUS_DEFAULT,
+    statusChecking: STATUS_DEFAULT,
+    errorMessage: undefined,
 }
 
 export const userReducer = createReducer(initialState, {
     [checkUserActions.startAC]: (draft) => {
-        draft.status = STATUS.LOADING;
+        draft.statusChecking = STATUS.LOADING;
     },
     [checkUserActions.successAC]: (draft, action) => {
-        console.log(action.payload.user);
         draft.info = action.payload.user;
-        draft.status = STATUS.SUCCESS;
+        draft.statusChecking = STATUS.SUCCESS;
     },
     [checkUserActions.failAC]: (draft) => {
-        draft.status = STATUS.FAIL;
+        draft.statusChecking = STATUS.FAIL;
     },
     [loginUserActions.startAC]: (draft) => {
+        draft.errorMessage = undefined;
         draft.status = STATUS.PROCESSING;
     },
     [loginUserActions.successAC]: (draft, action) => {
         draft.info = action.payload.user;
         draft.status = STATUS.SUCCESS;
     },
-    [loginUserActions.failAC]: (draft) => {
+    [loginUserActions.failAC]: (draft, action) => {
         draft.status = STATUS.FAIL;
+        draft.errorMessage = action.payload.message;
     }
 })
