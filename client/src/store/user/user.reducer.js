@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { checkUserActions, loginUserActions } from "./user.actions";
+import { checkUserActions, loginUserActions, registerUserActions } from "./user.actions";
 import { STATUS, STATUS_DEFAULT } from '../utils/statusDefault';
 
 export const userReducerPath = 'user';
@@ -22,6 +22,7 @@ export const userReducer = createReducer(initialState, {
     [checkUserActions.failAC]: (draft) => {
         draft.statusChecking = STATUS.FAIL;
     },
+
     [loginUserActions.startAC]: (draft) => {
         draft.errorMessage = undefined;
         draft.status = STATUS.PROCESSING;
@@ -31,6 +32,19 @@ export const userReducer = createReducer(initialState, {
         draft.status = STATUS.SUCCESS;
     },
     [loginUserActions.failAC]: (draft, action) => {
+        draft.status = STATUS.FAIL;
+        draft.errorMessage = action.payload.message;
+    },
+    
+    [registerUserActions.startAC]: (draft) => {
+        draft.errorMessage = undefined;
+        draft.status = STATUS.PROCESSING;
+    },
+    [registerUserActions.successAC]: (draft, action) => {
+        draft.info = action.payload.user;
+        draft.status = STATUS.SUCCESS;
+    },
+    [registerUserActions.failAC]: (draft, action) => {
         draft.status = STATUS.FAIL;
         draft.errorMessage = action.payload.message;
     }

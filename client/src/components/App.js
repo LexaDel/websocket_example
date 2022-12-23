@@ -5,9 +5,9 @@ import {
     Routes,
 } from "react-router-dom";
 import AdminPage from "../pages/AdminPage";
-import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import ProtectedRoute from './ProtectedRouter';
 import LoginPage from '../pages/LoginPage/LoginPage';
+import RegisterPageContainer from "../pages/RegisterPage/RegisterPage.container";
 
 
 export class App extends Component {
@@ -19,7 +19,7 @@ export class App extends Component {
                         <Route exact path="/" element={<div>Hello</div>} />
                         <Route path="/admin" element={<AdminPage />} />
                     </Route>
-                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/register" element={<RegisterPageContainer />} />
                     <Route path="/login" element={<LoginPage />} />
                 </Routes>
             </BrowserRouter>

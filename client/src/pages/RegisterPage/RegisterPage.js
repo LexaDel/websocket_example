@@ -3,10 +3,14 @@ import { Button, Form, Input } from 'antd';
 import PageTemplate from "../PageTemplate/PageTemplate";
 import './RegisterPage.sass';
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { PropTypes } from 'prop-types';
+import { Navigate } from 'react-router';
 
 class RegisterPage extends Component {
     onFinish = (values) => {
-        console.log('Success:', values);
+        const { register } = this.props;
+
+        register(values);
     };
 
     onFinishFailed = (errorInfo) => {
@@ -14,6 +18,11 @@ class RegisterPage extends Component {
     };
 
     render() {
+        const { status, errorMessage, userInfo } = this.props;
+        if (userInfo) {
+            return <Navigate to="/" />;
+        }
+
         return (
             <PageTemplate>
                 <Form
@@ -27,6 +36,8 @@ class RegisterPage extends Component {
                 >
                     <Form.Item
                         name="username"
+                        validateStatus={errorMessage && 'error'}
+                        help={errorMessage}
                         rules={[{ required: true, message: 'Please input your Username!' }]}
                     >
                         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
@@ -66,6 +77,7 @@ class RegisterPage extends Component {
                         className="registerButton"
                         type="primary" 
                         htmlType="submit"
+                        loading={status.processing}
                     >
                         Register
                     </Button>
@@ -75,6 +87,13 @@ class RegisterPage extends Component {
             </PageTemplate>
         )
     }
+}
+
+RegisterPage.propTypes = {
+    userInfo: PropTypes.shape(),
+    register: PropTypes.func.isRequired,
+    status: PropTypes.shape().isRequired,
+    errorMessage: PropTypes.string,
 }
 
 export default RegisterPage;
