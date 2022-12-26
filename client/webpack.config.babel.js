@@ -20,10 +20,14 @@ export default {
         port: 80,
         historyApiFallback: true,
         onBeforeSetupMiddleware({app}) {
-            app.use('/api', createProxyMiddleware({
+            app.use('/api/auth', createProxyMiddleware({
                 target: 'http://localhost:3000',
                 changeOrigin: true,
-            }))
+            }));
+            app.use('/api/data', createProxyMiddleware({
+                target: 'http://localhost:5000',
+                changeOrigin: true,
+            }));
         }
     },
     module: {
