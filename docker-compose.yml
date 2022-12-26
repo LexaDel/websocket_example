@@ -21,7 +21,7 @@ services:
     ports:
       - $POSTGRES_LOCAL_PORT:$POSTGRES_DOCKER_PORT
     volumes:
-      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - ./postgres/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       - .:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d pgdb"]
@@ -37,7 +37,7 @@ services:
           memory: 4G
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4:5.7
+    image: dpage/pgadmin4:6.18
     environment:
       PGADMIN_DEFAULT_EMAIL: "habrpguser@habr.com"
       PGADMIN_DEFAULT_PASSWORD: "pgadminpwd4habr"
