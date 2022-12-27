@@ -24,7 +24,7 @@ export default {
                 target: 'http://localhost:3000',
                 changeOrigin: true,
             }));
-            app.use('/api/data', createProxyMiddleware({
+            app.use('/api/v1/data', createProxyMiddleware({
                 target: 'http://localhost:5000',
                 changeOrigin: true,
             }));

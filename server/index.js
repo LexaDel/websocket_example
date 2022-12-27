@@ -1,11 +1,13 @@
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import express, { json, urlencoded } from 'express';
+import express from 'express';
 import {
   ALLOWED_ORIGIN,
   CONFIG_POSTGRES_DB,
 } from './config/index.js';
 import pg from 'pg';
+import userController from './controllers/userController.js';
 
 const app = express();
 app.use(
@@ -15,16 +17,13 @@ app.use(
   })
 );
 
-app.use(json());
-app.use(urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 const client = new pg.Client(CONFIG_POSTGRES_DB);
 
-app.get('/api/data', async (req, res) => {
-    const result = await client.query('SELECT $1::text as message', ['Hello world!']);
-    res.send({ result });
-});
+userController(app, client);
 
 app.use((err, req, res) => {
   console.log(`${err.message || JSON.stringify(err, null, 2)}`);

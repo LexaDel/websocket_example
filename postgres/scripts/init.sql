@@ -1,7 +1,7 @@
 CREATE TABLE if not exists users
 (
-    id SERIAL,
+    id text,
     name text,
-    second_name text,
+    email text,
     CONSTRAINT users_pkey PRIMARY KEY (id)
 );

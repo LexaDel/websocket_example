@@ -1,9 +1,10 @@
 import argon2 from 'argon2';
 import { COOKIE_NAME } from '../config/index.js';
 import User from '../models/User.js';
+import axios from 'axios';
 
 export const getUser = async (req, res, next) => {
-  const userId = req.user?.userId
+  const userId = req.user?.userId;
 
   if (!userId) {
     return res.status(400).json({ message: 'User ID must be provided' })
@@ -55,7 +56,12 @@ export const registerUser = async (req, res, next) => {
       role
     })
 
-    req.user = { userId: newUser.id, username, role: newUser.role }
+    req.user = { userId: newUser.id, username, role: newUser.role, email };
+    await axios.post('http://my-api.dev:5000/api/v1/data/user', {
+      userId: newUser.id,
+      username,
+      email,
+    });
 
     next('route')
   } catch (e) {

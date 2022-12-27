@@ -85,6 +85,10 @@ services:
     depends_on:
       postgres_container:
         condition: service_healthy
+    networks:
+      default:
+        aliases:
+          - my-api.dev
 volumes:
   pgdata:
   db:
