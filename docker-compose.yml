@@ -22,7 +22,7 @@ services:
       - $POSTGRES_LOCAL_PORT:$POSTGRES_DOCKER_PORT
     volumes:
       - ./postgres/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - .:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d pgdb"]
       interval: 10s
@@ -86,4 +86,5 @@ services:
       postgres_container:
         condition: service_healthy
 volumes:
+  pgdata:
   db:
