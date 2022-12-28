@@ -1,7 +1,7 @@
+import { getStatusChecking, getUserInfo } from '../store/user/user.selectors';
 import { Navigate, Outlet } from 'react-router-dom';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { getStatusChecking, getUserInfo } from '../store/user/user.selectors';
 import { PropTypes } from 'prop-types';
 import { Spin } from 'antd';
 

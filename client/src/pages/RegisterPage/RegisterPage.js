@@ -1,6 +1,6 @@
+import PageTemplate from "../PageTemplate/PageTemplate";
 import { Component } from "react";
 import { Button, Form, Input } from 'antd';
-import PageTemplate from "../PageTemplate/PageTemplate";
 import './RegisterPage.sass';
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { PropTypes } from 'prop-types';

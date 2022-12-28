@@ -1,7 +1,7 @@
+import PageTemplate from '../PageTemplate/PageTemplate';
 import { MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { Component } from 'react';
-import PageTemplate from '../PageTemplate/PageTemplate';
 import { PropTypes } from 'prop-types';
 
 

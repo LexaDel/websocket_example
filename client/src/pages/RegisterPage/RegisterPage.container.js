@@ -1,7 +1,7 @@
 import RegisterPage from "./RegisterPage";
 import { getUserInfo, getUserStatus } from '../../store/user/user.selectors';
-import { connect } from 'react-redux';
 import { registerUserActions } from "../../store/user/user.actions";
+import { connect } from 'react-redux';
 
 
 export default connect(

@@ -1,4 +1,3 @@
-import { createReducer } from "@reduxjs/toolkit";
 import { 
     checkUserActions,
     loginUserActions,
@@ -6,6 +5,7 @@ import {
     updateUserInfoActions,
 } from "./user.actions";
 import { STATUS, STATUS_DEFAULT } from '../utils/statusDefault';
+import { createReducer } from "@reduxjs/toolkit";
 
 
 export const userReducerPath = 'user';

@@ -1,14 +1,14 @@
-import { Component } from "react";
+import ProtectedRoute from './ProtectedRouter';
+import AdminPage from "../pages/AdminPage";
+import LoginPage from '../pages/LoginPage/LoginPage';
+import RegisterPageContainer from "../pages/RegisterPage/RegisterPage.container";
+import UserPageContainer from "../pages/UserPage/UserPage.container";
 import {
     BrowserRouter,
     Route,
     Routes,
 } from "react-router-dom";
-import AdminPage from "../pages/AdminPage";
-import ProtectedRoute from './ProtectedRouter';
-import LoginPage from '../pages/LoginPage/LoginPage';
-import RegisterPageContainer from "../pages/RegisterPage/RegisterPage.container";
-import UserPageContainer from "../pages/UserPage/UserPage.container";
+import { Component } from "react";
 
 
 export class App extends Component {

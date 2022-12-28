@@ -1,6 +1,6 @@
+import { loginUserActions } from '../user.actions';
 import axios from 'axios';
 import { call, put } from 'redux-saga/effects';
-import { loginUserActions } from '../user.actions';
 
 
 export default function* loginUserSaga(action) {

@@ -1,13 +1,13 @@
+import PageTemplate from '../PageTemplate/PageTemplate';
+import { loginUserActions } from '../../store/user/user.actions';
+import { getErrorMessage, getUserInfo, getUserStatus } from '../../store/user/user.selectors';
 import { Form, Input, Button } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Component } from 'react'; 
-import PageTemplate from '../PageTemplate/PageTemplate';
 import './LoginPage.sass';
 import { Navigate } from 'react-router';
 import { connect } from 'react-redux';
-import { loginUserActions } from '../../store/user/user.actions';
 import { PropTypes } from 'prop-types';
-import { getErrorMessage, getUserInfo, getUserStatus } from '../../store/user/user.selectors';
 
 
 class LoginPage extends Component {

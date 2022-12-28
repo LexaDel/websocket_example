@@ -1,5 +1,5 @@
-import { combineReducers } from "@reduxjs/toolkit";
 import { userReducer, userReducerPath } from './user/user.reducer';
+import { combineReducers } from "@reduxjs/toolkit";
 
 
 export default combineReducers({

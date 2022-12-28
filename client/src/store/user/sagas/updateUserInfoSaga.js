@@ -1,6 +1,6 @@
 
-import { call, put } from 'redux-saga/effects';
 import { updateUserInfoActions } from '../user.actions';
+import { call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 

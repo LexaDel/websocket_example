@@ -1,8 +1,8 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import DartSass from 'sass';
-import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import path from 'path';
 
 
 export default {

@@ -1,7 +1,7 @@
+import { getUserInfoSaga } from "./getUserInfoSaga";
+import { checkUserActions } from '../user.actions';
 import axios from "axios";
 import { call, put } from "redux-saga/effects";
-import { checkUserActions } from '../user.actions';
-import { getUserInfoSaga } from "./getUserInfoSaga";
 
 
 export function* checkUserSaga() {
