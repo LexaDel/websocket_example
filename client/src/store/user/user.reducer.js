@@ -65,4 +65,4 @@ export const userReducer = createReducer(initialState, {
         draft.status = STATUS.FAIL;
         draft.errorMessage = action.payload.message;
     },
-})
+});

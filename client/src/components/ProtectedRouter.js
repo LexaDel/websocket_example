@@ -11,7 +11,7 @@ class ProtectedRoute extends Component {
         if (status.loading) {
             return <Spin />;
         }
-        
+
         return userInfo ? <Outlet /> : <Navigate to='/login' />
     }
 }
