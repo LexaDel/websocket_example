@@ -8,6 +8,7 @@ import AdminPage from "../pages/AdminPage";
 import ProtectedRoute from './ProtectedRouter';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegisterPageContainer from "../pages/RegisterPage/RegisterPage.container";
+import UserPageContainer from "../pages/UserPage/UserPage.container";
 
 
 export class App extends Component {
@@ -16,8 +17,9 @@ export class App extends Component {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/" element={<ProtectedRoute />}>
-                        <Route exact path="/" element={<div>Hello</div>} />
-                        <Route path="/admin" element={<AdminPage />} />
+                        <Route index element={<div>Hello</div>} />
+                        <Route path="admin" element={<AdminPage />} />
+                        <Route path="/user" element={<UserPageContainer />} />
                     </Route>
                     <Route path="/register" element={<RegisterPageContainer />} />
                     <Route path="/login" element={<LoginPage />} />

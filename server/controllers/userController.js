@@ -7,8 +7,15 @@ export default function userController(app, dbClient) {
         const result = await dbClient.query('SELECT * from users where id = $1', [userId]);
         
         if (result.rows.length > 0) {
-            const { id: userId, email, name: username } = result.rows[0];
-            return res.send({ userId, email, username });
+            const { 
+                id: userId, 
+                email,
+                name: username,
+                firstname: firstName,
+                secondname: secondName,
+            } = result.rows[0];
+
+            return res.send({ userId, email, username, firstName, secondName });
         }
     });
 
@@ -23,14 +30,13 @@ export default function userController(app, dbClient) {
     });
 
     app.patch(USER_INFO, async (req, res) => {
-        const { userid, username, email } = req.body;
+        const { userId, firstName, secondName } = req.body;
         const result = await dbClient.query(
             `UPDATE "users" 
-            SET "name" = $1, "email" = $2 
+            SET "firstname" = $1, "secondname" = $2 
             WHERE "id" = $3`, 
-            [username, email, userid]
+            [firstName, secondName, userId]
         );
-        console.log(result.rows)
 
         res.send({ result });
     });
