@@ -5,6 +5,7 @@ import {
     call,
 } from 'redux-saga/effects';
 
+
 export const WATCHER_SAGA_TYPE = {
     LEADING: 'LEADING',
     LATEST: 'LATEST',
