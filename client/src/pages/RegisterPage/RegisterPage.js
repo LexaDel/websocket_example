@@ -6,6 +6,7 @@ import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { PropTypes } from 'prop-types';
 import { Navigate } from 'react-router';
 
+
 class RegisterPage extends Component {
     onFinish = (values) => {
         const { register } = this.props;

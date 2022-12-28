@@ -4,6 +4,7 @@ import { Component } from 'react';
 import PageTemplate from '../PageTemplate/PageTemplate';
 import { PropTypes } from 'prop-types';
 
+
 class UserPage extends Component {
     constructor(props) {
         super(props);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { call } from "redux-saga/effects";
 
+
 export function* getUserInfoSaga(action) {
     const { userId } = action.payload;
     try {

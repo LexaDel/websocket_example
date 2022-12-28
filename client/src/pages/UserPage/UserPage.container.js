@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { updateUserInfoActions } from "../../store/user/user.actions";
 import UserPage from "./UserPage";
 
+
 export default connect(
     (state) => ({
         userInfo: getUserInfo(state),

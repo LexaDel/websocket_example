@@ -5,6 +5,7 @@ import { getStatusChecking, getUserInfo } from '../store/user/user.selectors';
 import { PropTypes } from 'prop-types';
 import { Spin } from 'antd';
 
+
 class ProtectedRoute extends Component {
     render() {
         const { userInfo, status } = this.props;

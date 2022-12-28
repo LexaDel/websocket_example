@@ -3,6 +3,7 @@ import { call, put } from "redux-saga/effects";
 import { checkUserActions } from '../user.actions';
 import { getUserInfoSaga } from "./getUserInfoSaga";
 
+
 export function* checkUserSaga() {
     yield put(checkUserActions.startAC());
 

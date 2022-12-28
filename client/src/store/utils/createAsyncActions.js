@@ -1,5 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
 
+
 export default function createAsyncActions(baseAction) {
     return {
         triggerAC: createAction(`TRIGGER_${baseAction}`),

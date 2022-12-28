@@ -2,6 +2,7 @@ import { Component } from "react";
 import './PageTemplate.sass';
 import { PropTypes } from 'prop-types';
 
+
 class PageTemplate extends Component {
     render() {
         const { children } = this.props;
