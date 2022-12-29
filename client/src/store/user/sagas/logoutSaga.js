@@ -1,27 +1,19 @@
 import { getAccessToken } from "../user.selectors";
 import { logoutActions } from "../user.actions";
-import { call, put, select } from "redux-saga/effects";
-import axios from 'axios';
+import { HTTP_METHOD } from "../../../dictionaries/httpMethods";
+import requestSaga from "../../utils/requestSaga";
+import { call, select } from "redux-saga/effects";
 
 
 export default function* logoutSaga() {
     const token = yield select(getAccessToken);
 
-    yield put(logoutActions.startAC());
-
-    try {
-        yield call(axios, {
-            method: 'get',
-            url: 'api/auth/logout',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        });
-
-        yield put(logoutActions.successAC());
-    } catch (e) {
-        yield put(logoutActions.failAC());
-    }
-
-
+    yield call(requestSaga, {
+        method: HTTP_METHOD.GET,
+        url: 'api/auth/logout',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        actions: logoutActions,
+    });
 }

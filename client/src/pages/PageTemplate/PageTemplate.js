@@ -9,7 +9,6 @@ const cssPrefix = "pageTemplate";
 class PageTemplate extends Component {
     render() {
         const { children, logout, userInfo } = this.props;
-        console.log(logout);
 
         return (
             <div className={cssPrefix}>
