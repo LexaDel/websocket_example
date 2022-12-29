@@ -2,6 +2,7 @@ import { getAccessToken } from "../user.selectors";
 import { logoutActions } from "../user.actions";
 import { HTTP_METHOD } from "../../../dictionaries/httpMethods";
 import requestSaga from "../../utils/requestSaga";
+import { API_ROUTES } from '../../../../../endpoints/api.routes';
 import { call, select } from "redux-saga/effects";
 
 
@@ -10,7 +11,7 @@ export default function* logoutSaga() {
 
     yield call(requestSaga, {
         method: HTTP_METHOD.GET,
-        url: 'api/auth/logout',
+        url: API_ROUTES.LOGOUT,
         headers: {
             Authorization: `Bearer ${token}`,
         },

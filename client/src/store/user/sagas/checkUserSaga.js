@@ -2,6 +2,7 @@ import { getUserInfoSaga } from "./getUserInfoSaga";
 import { checkUserActions } from '../user.actions';
 import requestSaga from "../../utils/requestSaga";
 import { HTTP_METHOD } from "../../../dictionaries/httpMethods";
+import { API_ROUTES } from "../../../../../endpoints/api.routes";
 import { call, put } from "redux-saga/effects";
 
 
@@ -10,7 +11,7 @@ export function* checkUserSaga() {
     try {
         const { user, accessToken } = yield call(requestSaga, {
             method: HTTP_METHOD.GET,
-            url: 'api/auth',
+            url: API_ROUTES.CHECK_AUTH,
             headers: {
                 "X-Verification-Code": 'verification_code'
             },
