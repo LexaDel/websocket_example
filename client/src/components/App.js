@@ -3,6 +3,7 @@ import AdminPage from "../pages/AdminPage";
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegisterPageContainer from "../pages/RegisterPage/RegisterPage.container";
 import UserPageContainer from "../pages/UserPage/UserPage.container";
+import PageTemplateContainer from '../pages/PageTemplate/PageTemplate.container';
 import {
     BrowserRouter,
     Route,
@@ -17,7 +18,7 @@ export class App extends Component {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/" element={<ProtectedRoute />}>
-                        <Route index element={<div>Hello</div>} />
+                        <Route index element={<PageTemplateContainer>Hello</PageTemplateContainer>} />
                         <Route path="admin" element={<AdminPage />} />
                         <Route path="/user" element={<UserPageContainer />} />
                     </Route>

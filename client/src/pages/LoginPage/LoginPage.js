@@ -1,4 +1,4 @@
-import PageTemplate from '../PageTemplate/PageTemplate';
+import PageTemplateContainer from '../PageTemplate/PageTemplate.container';
 import { loginUserActions } from '../../store/user/user.actions';
 import { getErrorMessage, getUserInfo, getUserStatus } from '../../store/user/user.selectors';
 import { Form, Input, Button } from 'antd';
@@ -29,7 +29,7 @@ class LoginPage extends Component {
         }
 
         return (
-            <PageTemplate>
+            <PageTemplateContainer>
                 <Form
                     className="login-form"
                     name="basic"
@@ -70,7 +70,7 @@ class LoginPage extends Component {
                         Or <a href="/register">register now!</a>
                     </Form.Item>
                 </Form>
-            </PageTemplate>
+            </PageTemplateContainer>
         )
     }
 }

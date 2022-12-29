@@ -17,7 +17,10 @@ export function* checkUserSaga() {
         });
         const userInfo = yield call(getUserInfoSaga, { payload: { userId: response.data.user._id }});
 
-        yield put(checkUserActions.successAC({ user: { ...response.data.user, ...userInfo }}));
+        yield put(checkUserActions.successAC({ 
+            user: { ...response.data.user, ...userInfo }, 
+            accessToken: response.data.accessToken,
+        }));
     } catch (err) {
         yield put(checkUserActions.failAC());
     }

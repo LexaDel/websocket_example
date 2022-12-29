@@ -81,7 +81,7 @@ export default {
     plugins: [
         new HtmlWebpackPlugin({ template: 'src/index.html' }),
         new MiniCssExtractPlugin({
-            filename: 'assets/css/[name].[name].css',
+            filename: 'assets/css/main.css',
         })
     ],
     devtool: 'source-map',

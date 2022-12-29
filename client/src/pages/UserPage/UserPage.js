@@ -1,4 +1,4 @@
-import PageTemplate from '../PageTemplate/PageTemplate';
+import PageTemplateContainer from '../PageTemplate/PageTemplate.container';
 import { MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { Component } from 'react';
@@ -32,7 +32,7 @@ class UserPage extends Component {
         const { username, email, firstName, secondName } = this.state;
 
         return (
-            <PageTemplate>
+            <PageTemplateContainer>
                 <Form
                     className="userInfoPage"
                     initialValues={{
@@ -100,7 +100,7 @@ class UserPage extends Component {
                     </Button>
                     </Form.Item>
                 </Form>
-            </PageTemplate>
+            </PageTemplateContainer>
         );
     }
 }

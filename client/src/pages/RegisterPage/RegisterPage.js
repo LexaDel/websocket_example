@@ -1,4 +1,5 @@
-import PageTemplate from "../PageTemplate/PageTemplate";
+
+import PageTemplateContainer from "../PageTemplate/PageTemplate.container";
 import { Component } from "react";
 import { Button, Form, Input } from 'antd';
 import './RegisterPage.sass';
@@ -25,7 +26,7 @@ class RegisterPage extends Component {
         }
 
         return (
-            <PageTemplate>
+            <PageTemplateContainer>
                 <Form
                     className="registerPage"
                     initialValues={{
@@ -85,7 +86,7 @@ class RegisterPage extends Component {
                     Or <a href="/login">log in</a>
                     </Form.Item>
                 </Form>
-            </PageTemplate>
+            </PageTemplateContainer>
         )
     }
 }

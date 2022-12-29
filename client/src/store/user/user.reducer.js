@@ -1,6 +1,7 @@
 import { 
     checkUserActions,
     loginUserActions,
+    logoutActions,
     registerUserActions,
     updateUserInfoActions,
 } from "./user.actions";
@@ -15,14 +16,24 @@ const initialState = {
     status: STATUS_DEFAULT,
     statusChecking: STATUS_DEFAULT,
     errorMessage: undefined,
+    accessToken: undefined,
 }
 
 export const userReducer = createReducer(initialState, {
+    [logoutActions.startAC]: (draft) => {
+        draft.status = STATUS.PROCESSING;
+    },
+    [logoutActions.successAC]: () => initialState,
+    [logoutActions.startAC]: (draft) => {
+        draft.status = STATUS.FAIL;
+    },
+
     [checkUserActions.startAC]: (draft) => {
         draft.statusChecking = STATUS.LOADING;
     },
     [checkUserActions.successAC]: (draft, action) => {
         draft.info = action.payload.user;
+        draft.accessToken = action.payload.accessToken;
         draft.statusChecking = STATUS.SUCCESS;
     },
     [checkUserActions.failAC]: (draft) => {
@@ -35,6 +46,7 @@ export const userReducer = createReducer(initialState, {
     },
     [loginUserActions.successAC]: (draft, action) => {
         draft.info = action.payload.user;
+        draft.accessToken = action.payload.accessToken;
         draft.status = STATUS.SUCCESS;
     },
     [loginUserActions.failAC]: (draft, action) => {
@@ -48,6 +60,7 @@ export const userReducer = createReducer(initialState, {
     },
     [registerUserActions.successAC]: (draft, action) => {
         draft.info = action.payload.user;
+        draft.accessToken = action.payload.accessToken;
         draft.status = STATUS.SUCCESS;
     },
     [registerUserActions.failAC]: (draft, action) => {
