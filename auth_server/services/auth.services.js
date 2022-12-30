@@ -25,48 +25,91 @@ export const getUser = async (req, res, next) => {
 }
 
 export const registerUser = async (req, res, next) => {
-  const username = req.body?.username
-  const email = req.body?.email
-  const password = req.body?.password
-  const role = req.body?.role
+  const username = req.body?.username;
+  const email = req.body?.email;
+  const password = req.body?.password;
 
   if (!username || !email || !password) {
     return res
       .status(400)
-      .json({ message: 'Username, email and password must be provided' })
+      .json({ message: 'Username, email and password must be provided' });
   }
 
   try {
     const [existingUser] = await User.find({
       $or: [{ username }, { email }]
-    })
+    });
 
     if (existingUser) {
       return res
         .status(409)
-        .json({ message: 'Username or email already in use' })
+        .json({ message: 'Username or email already in use' });
     }
 
-    const hashedPassword = await argon2.hash(password)
+    const hashedPassword = await argon2.hash(password);
 
     const newUser = await User.create({
       username,
       email,
       password: hashedPassword,
-      role
-    })
+      role: 'USER'
+    });
 
     req.user = { userId: newUser.id, username, role: newUser.role, email };
-    await axios.post('http://my-api.dev:5000/api/v1/data/user', {
-      userId: newUser.id,
+    await axios.post(`http://my-api.dev:5000/api/v1/data/user/${newUser.id}`, {
       username,
       email,
     });
 
-    next('route')
+    next('route');
   } catch (e) {
-    console.log('*registerUser service')
-    next(e)
+    console.log('*registerUser service');
+    next(e);
+  }
+}
+
+export const registerUserFromAdminPanel = async (req, res, next) => {
+  const username = req.body?.username;
+  const email = req.body?.email;
+  const password = req.body?.password;
+  const role = req.body?.role;
+
+  if (!username || !email || !password) {
+    return res
+      .status(400)
+      .json({ message: 'Username, email and password must be provided' });
+  }
+
+  try {
+    const [existingUser] = await User.find({
+      $or: [{ username }, { email }]
+    });
+
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ message: 'Username or email already in use' });
+    }
+
+    const hashedPassword = await argon2.hash(password);
+
+    const newUser = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+      role,
+    });
+
+    req.user = { userId: newUser.id, username, role: newUser.role, email };
+    await axios.post(`http://my-api.dev:5000/api/v1/data/user/${newUser.id}`, {
+      username,
+      email,
+    });
+
+    next('route');
+  } catch (e) {
+    console.log('*registerUser service');
+    next(e);
   }
 }
 

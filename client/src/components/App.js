@@ -1,9 +1,8 @@
 import ProtectedRoute from './ProtectedRouter';
-import AdminPage from "../pages/AdminPage";
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegisterPageContainer from "../pages/RegisterPage/RegisterPage.container";
 import UserPageContainer from "../pages/UserPage/UserPage.container";
-import PageTemplateContainer from '../pages/PageTemplate/PageTemplate.container';
+import DashboardPageContainer from '../pages/DashboardPage/DashboardPage.container';
 import {
     BrowserRouter,
     Route,
@@ -18,8 +17,7 @@ export class App extends Component {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/" element={<ProtectedRoute />}>
-                        <Route index element={<PageTemplateContainer>Hello</PageTemplateContainer>} />
-                        <Route path="admin" element={<AdminPage />} />
+                        <Route index element={<DashboardPageContainer />} />
                         <Route path="/user" element={<UserPageContainer />} />
                     </Route>
                     <Route path="/register" element={<RegisterPageContainer />} />

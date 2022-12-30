@@ -5,7 +5,7 @@ export const verifyPermission = async (req, res, next) => {
       return res.status(403).json({ message: 'User must be provided' })
     }
   
-    if (!user.role || user.role !== 'ADMIN') {
+    if (!user.role || user.role !== 'SUPER_ADMIN') {
       return res
         .status(403)
         .json({ message: 'Only admins can perform this action' })

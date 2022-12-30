@@ -1,18 +1,19 @@
-
+import { ROLES } from '../../dictionaries/roles';
 import PageTemplateContainer from "../PageTemplate/PageTemplate.container";
+import { withRouter } from "../../utils/withRouter";
 import { Component } from "react";
 import { Button, Form, Input } from 'antd';
 import './RegisterPage.sass';
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { PropTypes } from 'prop-types';
-import { Navigate } from 'react-router';
+import { Navigate } from "react-router";
 
 
 class RegisterPage extends Component {
     onFinish = (values) => {
-        const { register } = this.props;
+        const { register, navigate } = this.props;
 
-        register(values);
+        register({ ...values, navigate });
     };
 
     onFinishFailed = (errorInfo) => {
@@ -20,10 +21,16 @@ class RegisterPage extends Component {
     };
 
     render() {
-        const { status, errorMessage, userInfo } = this.props;
-        if (userInfo) {
-            return <Navigate to="/" />;
-        }
+        const { 
+            status,
+            errorMessage,
+            userInfo,
+         } = this.props;
+         const isSuperAdmin = userInfo?.role === ROLES.SUPER_ADMIN;
+
+         if (userInfo && !isSuperAdmin) {
+            return <Navigate to="/" />
+         }
 
         return (
             <PageTemplateContainer>
@@ -74,6 +81,14 @@ class RegisterPage extends Component {
                             placeholder="Password"
                         />
                     </Form.Item>
+                    {isSuperAdmin && (
+                        <Form.Item
+                            name="role"
+                            rules={[{ required: true }]}
+                        >
+                            <Input placeholder="Role" />
+                        </Form.Item>
+                    )}
                     <Form.Item>
                     <Button 
                         className="registerButton"
@@ -83,7 +98,11 @@ class RegisterPage extends Component {
                     >
                         Register
                     </Button>
-                    Or <a href="/login">log in</a>
+                    {!isSuperAdmin && (
+                        <>
+                            Or <a href="/login">log in</a>
+                        </>
+                    )}
                     </Form.Item>
                 </Form>
             </PageTemplateContainer>
@@ -96,6 +115,12 @@ RegisterPage.propTypes = {
     register: PropTypes.func.isRequired,
     status: PropTypes.shape().isRequired,
     errorMessage: PropTypes.string,
+    navigate: PropTypes.func.isRequired,
 }
 
-export default RegisterPage;
+RegisterPage.defaultProps = {
+    userInfo: undefined,
+    errorMessage: undefined,
+};
+
+export default withRouter(RegisterPage);

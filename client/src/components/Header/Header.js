@@ -1,3 +1,4 @@
+import { ROLES } from '../../dictionaries/roles';
 import { Avatar, Dropdown, Space } from 'antd';
 import { Component } from 'react';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
@@ -35,6 +36,17 @@ class Header extends Component {
             ),
           },
         ];
+
+        if (userInfo?.role === ROLES.SUPER_ADMIN) {
+          items.unshift({
+            key: '3',
+            label: (
+              <a rel="noopener noreferrer" href='/register'>
+                Register
+              </a>
+            ),
+          });
+        }
 
         return (
           <div className={cssPrefix}>
