@@ -1,5 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import axios from 'axios';
+import { generatePath } from "react-router";
 
 
 function defaultPayloadHandler(payload) {
@@ -11,6 +12,7 @@ export default function* requestSaga(options = {}) {
         method,
         url,
         query,
+        params = {},
         payload,
         headers,
         actions,
@@ -27,7 +29,7 @@ export default function* requestSaga(options = {}) {
         }
         const response = yield call(axios, {
             method,
-            url,
+            url: generatePath(url, params),
             params: query,
             data: payload,
             headers,

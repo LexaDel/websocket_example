@@ -2,7 +2,7 @@ import { USER_INFO } from '../routes/routes.js';
 
 export default function userController(app, dbClient) {
     app.get(USER_INFO, async (req, res) => {
-        const { userId } = req.query;
+        const { userId } = req.params;
 
         const result = await dbClient.query('SELECT * from users where id = $1', [userId]);
         
@@ -20,7 +20,8 @@ export default function userController(app, dbClient) {
     });
 
     app.post(USER_INFO, async (req, res) => {
-        const { userId, username, email } = req.body;
+        const { userId } = req.params;
+        const { username, email } = req.body;
         const result = await dbClient.query(
             'INSERT INTO users(id,name,email) VALUES($1,$2,$3)', 
             [userId, username, email],
@@ -30,7 +31,8 @@ export default function userController(app, dbClient) {
     });
 
     app.patch(USER_INFO, async (req, res) => {
-        const { userId, firstName, secondName } = req.body;
+        const { userId } = req.params;
+        const { firstName, secondName } = req.body;
         const result = await dbClient.query(
             `UPDATE "users" 
             SET "firstname" = $1, "secondname" = $2 
@@ -38,6 +40,10 @@ export default function userController(app, dbClient) {
             [firstName, secondName, userId]
         );
 
-        res.send({ result });
+        if (result.rowCount > 0) {
+            return res.sendStatus(200);
+        } else {
+            return res.sendStatus(409);
+        }
     });
 }
