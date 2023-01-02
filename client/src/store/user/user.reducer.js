@@ -59,8 +59,10 @@ export const userReducer = createReducer(initialState, {
         draft.status = STATUS.PROCESSING;
     },
     [registerUserActions.successAC]: (draft, action) => {
-        draft.info = action.payload.user;
-        draft.accessToken = action.payload.accessToken;
+        if (action.payload.user) {
+            draft.info = action.payload.user;
+            draft.accessToken = action.payload.accessToken;
+        }
         draft.status = STATUS.SUCCESS;
     },
     [registerUserActions.failAC]: (draft, action) => {

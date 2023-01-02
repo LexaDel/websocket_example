@@ -1,6 +1,8 @@
 import { ROLES } from '../../dictionaries/roles';
 import PageTemplateContainer from "../PageTemplate/PageTemplate.container";
 import { withRouter } from "../../utils/withRouter";
+import { withNotification } from '../../utils/withNotification';
+import { withForm } from '../../utils/withForm';
 import { Component } from "react";
 import { Button, Form, Input } from 'antd';
 import './RegisterPage.sass';
@@ -11,9 +13,10 @@ import { Navigate } from "react-router";
 
 class RegisterPage extends Component {
     onFinish = (values) => {
-        const { register, navigate } = this.props;
+        const { register, navigate, needNavigate, form, api } = this.props;
 
-        register({ ...values, navigate });
+        register({ ...values, navigate: needNavigate && navigate, api });
+        form.resetFields();
     };
 
     onFinishFailed = (errorInfo) => {
@@ -25,6 +28,8 @@ class RegisterPage extends Component {
             status,
             errorMessage,
             userInfo,
+            form,
+            contextHolder,
          } = this.props;
          const isSuperAdmin = userInfo?.role === ROLES.SUPER_ADMIN;
 
@@ -34,14 +39,13 @@ class RegisterPage extends Component {
 
         return (
             <PageTemplateContainer>
+                {contextHolder}
                 <Form
                     className="registerPage"
-                    initialValues={{
-                        remember: true,
-                    }}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     autoComplete="off"
+                    form={form}
                 >
                     <Form.Item
                         name="username"
@@ -116,11 +120,16 @@ RegisterPage.propTypes = {
     status: PropTypes.shape().isRequired,
     errorMessage: PropTypes.string,
     navigate: PropTypes.func.isRequired,
+    needNavigate: PropTypes.bool,
+    form: PropTypes.shape().isRequired,
+    api: PropTypes.shape().isRequired,
+    contextHolder: PropTypes.shape().isRequired,
 }
 
 RegisterPage.defaultProps = {
     userInfo: undefined,
     errorMessage: undefined,
+    needNavigate: false,
 };
 
-export default withRouter(RegisterPage);
+export default withRouter(withForm(withNotification(RegisterPage)));

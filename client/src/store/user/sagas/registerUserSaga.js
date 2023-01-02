@@ -13,6 +13,7 @@ export default function* registerUserSaga(action) {
         password,
         role,
         navigate,
+        api,
     } = action.payload;
 
     if (!role) {
@@ -29,7 +30,7 @@ export default function* registerUserSaga(action) {
     } else {
         const token = yield select(getAccessToken);
 
-        yield call(requestSaga, {
+        const response = yield call(requestSaga, {
             method: HTTP_METHOD.POST,
             url: API_ROUTES.REGISTER_FOR_SUPER_ADMIN,
             payload: {
@@ -43,6 +44,15 @@ export default function* registerUserSaga(action) {
             },
             actions: registerUserActions,
         });
+
+        if (api && response === 'OK') {
+            api.info({
+                message: `Success`,
+                description:
+                'User has been created',
+                placement: 'top',
+            });
+        }
     }
 
     if (navigate) {
