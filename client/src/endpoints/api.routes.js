@@ -10,4 +10,6 @@ export const API_ROUTES = {
     REGISTER_FOR_SUPER_ADMIN: `${authApiPrefix}/registerFromPanel`,
 
     USER_INFO: `${baseUrl}/user/:userId`,
+
+    GET_USER_LIST: `${baseUrl}/users`,
 }

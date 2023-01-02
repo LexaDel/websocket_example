@@ -8,6 +8,7 @@ import {
 } from './config/index.js';
 import pg from 'pg';
 import userController from './controllers/userController.js';
+import userListController from './controllers/userListController.js';
 
 const app = express();
 app.use(
@@ -24,6 +25,7 @@ app.use(cookieParser());
 const client = new pg.Client(CONFIG_POSTGRES_DB);
 
 userController(app, client);
+userListController(app, client);
 
 app.use((err, req, res) => {
   console.log(`${err.message || JSON.stringify(err, null, 2)}`);

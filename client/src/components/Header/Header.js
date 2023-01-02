@@ -1,5 +1,5 @@
 import { ROLES } from '../../dictionaries/roles';
-import { Avatar, Dropdown, Space } from 'antd';
+import { Avatar, Dropdown, Space, Typography } from 'antd';
 import { Component } from 'react';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './Header.sass';
@@ -17,6 +17,7 @@ class Header extends Component {
 
     render() {
       const { userInfo } = this.props;
+      const isSuperAdmin = userInfo.role === ROLES.SUPER_ADMIN;
 
       const items = [
         {
@@ -52,14 +53,17 @@ class Header extends Component {
           <div className={cssPrefix}>
             <h1> App </h1>
             {userInfo && (
-              <div className={`${cssPrefix}-dropdown`}>
-                <Dropdown menu={{ items }}>
-                <Space>
-                    <Avatar style={{ backgroundColor: '#87d068'}} icon={<UserOutlined />} />
-                    {userInfo?.username}
-                    <DownOutlined />
-                </Space>
-                </Dropdown>
+              <div className={`${cssPrefix}-userInfo`}>
+                {isSuperAdmin && <Typography.Link href='/users'>Users</Typography.Link>}
+                <div className={`${cssPrefix}-dropdown`}>
+                  <Dropdown menu={{ items }}>
+                  <Space>
+                      <Avatar style={{ backgroundColor: '#87d068'}} icon={<UserOutlined />} />
+                      {userInfo?.username}
+                      <DownOutlined />
+                  </Space>
+                  </Dropdown>
+                </div>
               </div>
             )}
           </div>
