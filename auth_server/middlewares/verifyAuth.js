@@ -29,7 +29,7 @@ export const verifyAuth = async (req, res, next) => {
     next();
   } catch (e) {
     if (e.name === 'TokenExpiredError') {
-      return res.status(401).json({ message: 'Refresh token has been expired' });
+      return res.clearCookie(COOKIE_NAME).status(401).json({ message: 'Refresh token has been expired' });
     }
 
     console.log('*verifyAuth middleware');

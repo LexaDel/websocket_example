@@ -106,49 +106,48 @@ export const registerUserFromAdminPanel = async (req, res, next) => {
       email,
     });
 
-    next('route');
+    return res.sendStatus(200);
   } catch (e) {
     console.log('*registerUser service');
-    next(e);
   }
 }
 
 export const loginUser = async (req, res, next) => {
-  const usernameOrEmail = req.body?.usernameOrEmail
-  const password = req.body?.password
+  const usernameOrEmail = req.body?.usernameOrEmail;
+  const password = req.body?.password;
 
   if (!usernameOrEmail || !password) {
     return res
       .status(400)
-      .json({ message: 'Username or email and password must be provided' })
+      .json({ message: 'Username or email and password must be provided' });
   }
 
   try {
     let user
     if (usernameOrEmail.includes('@')) {
-      user = await User.findOne({ email: usernameOrEmail }).select('+password')
+      user = await User.findOne({ email: usernameOrEmail }).select('+password');
     } else {
       user = await User.findOne({ username: usernameOrEmail }).select(
         '+password'
-      )
+      );
     }
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' })
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    const isPasswordCorrect = await argon2.verify(user.password, password)
+    const isPasswordCorrect = await argon2.verify(user.password, password);
 
     if (!isPasswordCorrect) {
-      return res.status(403).json({ message: 'Wrong credentials' })
+      return res.status(403).json({ message: 'Wrong credentials' });
     }
 
-    req.user = { userId: user.id, username: user.username, role: user.role }
+    req.user = { userId: user.id, username: user.username, role: user.role };
 
-    next('route')
+    next('route');
   } catch (e) {
-    console.log('*loginUser service')
-    next(e)
+    console.log('*loginUser service');
+    next(e);
   }
 }
 
