@@ -4,7 +4,7 @@ import { withRouter } from "../../utils/withRouter";
 import { withNotification } from '../../utils/withNotification';
 import { withForm } from '../../utils/withForm';
 import { Component } from "react";
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import './RegisterPage.sass';
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { PropTypes } from 'prop-types';
@@ -18,6 +18,10 @@ class RegisterPage extends Component {
 
         register({ ...values, navigate: needNavigate && navigate, api });
         form.resetFields();
+    };
+
+    handleChange = (value) => {
+        console.log(`selected ${value}`);
     };
 
     onFinishFailed = (errorInfo) => {
@@ -88,12 +92,35 @@ class RegisterPage extends Component {
                             />
                         </Form.Item>
                         {isSuperAdmin && (
+                            <Form.Item name="firstname">
+                                <Input placeholder="First Name" />
+                            </Form.Item>
+                        )}
+                        {isSuperAdmin && (
+                            <Form.Item name="secondname">
+                                <Input placeholder="Second Name" />
+                            </Form.Item>
+                        )}
+                        {isSuperAdmin && (
                             <Form.Item
                                 name="role"
                                 rules={[{ required: true }]}
                             >
-                                <Input placeholder="Role" />
+                                <Select
+                                    placeholder="Select a role"
+                                    options={[
+                                        {
+                                        value: 'USER',
+                                        label: 'user',
+                                        },
+                                        {
+                                        value: 'ADMIN',
+                                        label: 'admin',
+                                        },
+                                    ]}
+                                />
                             </Form.Item>
+
                         )}
                         <Form.Item>
                         <Button 
