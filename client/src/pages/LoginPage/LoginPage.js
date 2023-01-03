@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 
+const cssPrefix = 'loginPage';
 class LoginPage extends Component {
     onLogin = (values) => {
         const { login } = this.props;
@@ -30,46 +31,48 @@ class LoginPage extends Component {
 
         return (
             <PageTemplateContainer>
-                <Form
-                    className="login-form"
-                    name="basic"
-                    initialValues={{
-                        remember: true,
-                    }}
-                    onFinish={this.onLogin}
-                    onFinishFailed={this.onLoginFailed}
-                >
-                    <Form.Item
-                        name="username"
-                        validateStatus={errorMessage && 'error'}
-                        help={errorMessage}
-                        rules={[{ required: true, message: 'Please input your Username!' }]}
+                <div className={cssPrefix}>
+                    <Form
+                        className={`${cssPrefix}-form`}
+                        name="basic"
+                        initialValues={{
+                            remember: true,
+                        }}
+                        onFinish={this.onLogin}
+                        onFinishFailed={this.onLoginFailed}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                    </Form.Item>
-                    <Form.Item
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your Password!' }]}
-                    >
-                        <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Password"
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button 
-                            type="primary" 
-                            htmlType="submit" 
-                            className="login-form-button"
-                            loading={status.processing}
-                            
+                        <Form.Item
+                            name="username"
+                            validateStatus={errorMessage && 'error'}
+                            help={errorMessage}
+                            rules={[{ required: true, message: 'Please input your Username!' }]}
                         >
-                            Log in
-                        </Button>
-                        Or <a href="/register">register now!</a>
-                    </Form.Item>
-                </Form>
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        </Form.Item>
+                        <Form.Item
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your Password!' }]}
+                        >
+                            <Input
+                                prefix={<LockOutlined className="site-form-item-icon" />}
+                                type="password"
+                                placeholder="Password"
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button 
+                                type="primary" 
+                                htmlType="submit" 
+                                className={`${cssPrefix}-button`}
+                                loading={status.processing}
+                                
+                            >
+                                Log in
+                            </Button>
+                            Or <a href="/register">register now!</a>
+                        </Form.Item>
+                    </Form>
+                </div>
             </PageTemplateContainer>
         )
     }

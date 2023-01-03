@@ -17,7 +17,7 @@ class Header extends Component {
 
     render() {
       const { userInfo } = this.props;
-      const isSuperAdmin = userInfo.role === ROLES.SUPER_ADMIN;
+      const isSuperAdmin = userInfo?.role === ROLES.SUPER_ADMIN;
 
       const items = [
         {

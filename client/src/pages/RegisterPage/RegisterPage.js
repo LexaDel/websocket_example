@@ -11,6 +11,7 @@ import { PropTypes } from 'prop-types';
 import { Navigate } from "react-router";
 
 
+const cssPrefix = 'registerPage';
 class RegisterPage extends Component {
     onFinish = (values) => {
         const { register, navigate, needNavigate, form, api } = this.props;
@@ -39,76 +40,78 @@ class RegisterPage extends Component {
 
         return (
             <PageTemplateContainer>
-                {contextHolder}
-                <Form
-                    className="registerPage"
-                    onFinish={this.onFinish}
-                    onFinishFailed={this.onFinishFailed}
-                    autoComplete="off"
-                    form={form}
-                >
-                    <Form.Item
-                        name="username"
-                        validateStatus={errorMessage && 'error'}
-                        help={errorMessage}
-                        rules={[{ required: true, message: 'Please input your Username!' }]}
+                <div className={cssPrefix}>
+                    {contextHolder}
+                    <Form
+                        className={`${cssPrefix}-form`}
+                        onFinish={this.onFinish}
+                        onFinishFailed={this.onFinishFailed}
+                        autoComplete="off"
+                        form={form}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="email"
-                        rules={[
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                        },
-                        ]}
-                    >
-                        <Input 
-                            prefix={<MailOutlined className="site-form-item-icon" />}
-                            placeholder="Email"
-                        />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your Password!' }]}
-                    >
-                        <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Password"
-                        />
-                    </Form.Item>
-                    {isSuperAdmin && (
                         <Form.Item
-                            name="role"
-                            rules={[{ required: true }]}
+                            name="username"
+                            validateStatus={errorMessage && 'error'}
+                            help={errorMessage}
+                            rules={[{ required: true, message: 'Please input your Username!' }]}
                         >
-                            <Input placeholder="Role" />
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                         </Form.Item>
-                    )}
-                    <Form.Item>
-                    <Button 
-                        className="registerButton"
-                        type="primary" 
-                        htmlType="submit"
-                        loading={status.processing}
-                    >
-                        Register
-                    </Button>
-                    {!isSuperAdmin && (
-                        <>
-                            Or <a href="/login">log in</a>
-                        </>
-                    )}
-                    </Form.Item>
-                </Form>
+
+                        <Form.Item
+                            name="email"
+                            rules={[
+                            {
+                                type: 'email',
+                                message: 'The input is not valid E-mail!',
+                            },
+                            {
+                                required: true,
+                                message: 'Please input your E-mail!',
+                            },
+                            ]}
+                        >
+                            <Input 
+                                prefix={<MailOutlined className="site-form-item-icon" />}
+                                placeholder="Email"
+                            />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your Password!' }]}
+                        >
+                            <Input
+                                prefix={<LockOutlined className="site-form-item-icon" />}
+                                type="password"
+                                placeholder="Password"
+                            />
+                        </Form.Item>
+                        {isSuperAdmin && (
+                            <Form.Item
+                                name="role"
+                                rules={[{ required: true }]}
+                            >
+                                <Input placeholder="Role" />
+                            </Form.Item>
+                        )}
+                        <Form.Item>
+                        <Button 
+                            className={`${cssPrefix}-button`}
+                            type="primary" 
+                            htmlType="submit"
+                            loading={status.processing}
+                        >
+                            Register
+                        </Button>
+                        {!isSuperAdmin && (
+                            <>
+                                Or <a href="/login">log in</a>
+                            </>
+                        )}
+                        </Form.Item>
+                    </Form>
+                </div>
             </PageTemplateContainer>
         )
     }
