@@ -41,7 +41,22 @@ export default function userController(app, dbClient) {
         );
 
         if (result.rowCount > 0) {
-            return res.sendStatus(200);
+            const userInfo = await dbClient.query('SELECT * from users where id = $1', [userId]);
+            const { 
+                id, 
+                email,
+                name: username,
+                firstname,
+                secondname,
+            } = userInfo.rows[0];
+
+            return res.send({ 
+                userId: userId,
+                email,
+                username,
+                firstName: firstname,
+                secondName: secondname,
+            });
         } else {
             return res.sendStatus(409);
         }
