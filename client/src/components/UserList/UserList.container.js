@@ -1,6 +1,6 @@
 import UserList from './UserList';
 import { getStatus, getUserList } from '../../store/userList/userList.selectors';
-import { getUserListActions } from '../../store/userList/userList.actions';
+import { getUserListActions, updateUserActions, removeUserActions } from '../../store/userList/userList.actions';
 import { connect } from 'react-redux';
 
 
@@ -11,5 +11,7 @@ export default connect(
     }),
     {
         getUserList: getUserListActions.triggerAC,
+        save: updateUserActions.triggerAC,
+        remove: removeUserActions.triggerAC,
     }
 )(UserList);

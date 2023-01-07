@@ -6,5 +6,6 @@ CREATE TABLE if not exists users
     firstName text,
     secondName text,
     avatar bytea,
+    role text,
     CONSTRAINT users_pkey PRIMARY KEY (id)
 );

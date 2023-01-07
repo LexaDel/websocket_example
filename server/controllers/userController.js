@@ -21,10 +21,10 @@ export default function userController(app, dbClient) {
 
     app.post(USER_INFO, async (req, res) => {
         const { userId } = req.params;
-        const { username, email } = req.body;
+        const { username, email, role } = req.body;
         const result = await dbClient.query(
-            'INSERT INTO users(id,name,email) VALUES($1,$2,$3)', 
-            [userId, username, email],
+            'INSERT INTO users(id,name,email,role) VALUES($1,$2,$3,$4)', 
+            [userId, username, email, role],
         );
 
         res.sendStatus(200);

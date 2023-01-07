@@ -1,6 +1,7 @@
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import express, { json, urlencoded } from 'express';
+import express from 'express';
 import mongoose from 'mongoose';
 import {
   ALLOWED_ORIGIN,
@@ -18,8 +19,8 @@ app.use(
 );
 app.use(setSecurityHeaders);
 
-app.use(json());
-app.use(urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 try {
@@ -39,7 +40,7 @@ app.use((err, req, res) => {
   res.status(500).json({ message: 'Something went wrong. Try again later' });
 });
 
-const PORT = process.env.NODE_DOCKER_PORT || 8080;
+const PORT = process.env.NODE_DOCKER_PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

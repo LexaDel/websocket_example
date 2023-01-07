@@ -59,6 +59,7 @@ export const registerUser = async (req, res, next) => {
     await axios.post(`http://my-api.dev:5000/api/v1/data/user/${newUser.id}`, {
       username,
       email,
+      role: 'USER'
     });
 
     next('route');
@@ -104,6 +105,7 @@ export const registerUserFromAdminPanel = async (req, res, next) => {
     await axios.post(`http://my-api.dev:5000/api/v1/data/user/${newUser.id}`, {
       username,
       email,
+      role,
     });
 
     return res.sendStatus(200);
@@ -157,7 +159,7 @@ export const logoutUser = (req, res, next) => {
 }
 
 export const removeUser = async (req, res, next) => {
-  const usernameOrEmail = req.body?.usernameOrEmail
+  const usernameOrEmail = req.body?.usernameOrEmail;
 
   if (!usernameOrEmail) {
     return res

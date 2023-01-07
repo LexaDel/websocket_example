@@ -68,6 +68,10 @@ services:
     tty: true
     depends_on:
       - mongodb
+    networks:
+      default:
+        aliases:
+          - auth.dev
   server:
     build: ./server
     restart: unless-stopped
