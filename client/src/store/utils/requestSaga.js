@@ -44,7 +44,8 @@ export default function* requestSaga(options = {}) {
         return responseData;
     } catch (e) {
         if (actions) {
-            yield put(actions.failAC(failPayloadHandler()))
+            const responseData = e.response.data || e.payload;
+            yield put(actions.failAC(failPayloadHandler(responseData)))
         }
     }
 
