@@ -1,12 +1,11 @@
+import AppointmetsContainer from '../../components/Appointments/Appointments.container';
 import { Component } from 'react';
 
 
 class DoctorPage extends Component {
     render() {
         return (
-            <div>
-                Hello doctor
-            </div>
+            <AppointmetsContainer />
         )
     }
 }

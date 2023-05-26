@@ -110,13 +110,17 @@ class RegisterPage extends Component {
                                     placeholder="Select a role"
                                     options={[
                                         {
-                                        value: 'USER',
-                                        label: 'user',
+                                            value: 'USER',
+                                            label: 'user',
                                         },
                                         {
-                                        value: 'ADMIN',
-                                        label: 'admin',
+                                            value: 'ADMIN',
+                                            label: 'admin',
                                         },
+                                        {
+                                            value: 'DOCTOR',
+                                            label: 'doctor',
+                                        }
                                     ]}
                                 />
                             </Form.Item>

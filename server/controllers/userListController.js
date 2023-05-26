@@ -1,12 +1,25 @@
-import { DELETE_USER, GET_ALL_USER_LIST, PATCH_USER_DATA } from "../routes/routes.js";
+import { 
+    DELETE_USER,
+    GET_USER_LIST,
+    PATCH_USER_DATA,
+} from "../routes/routes.js";
 import axios from 'axios';
 
 
 export default function userListController(app, dbClient) {
-    app.get(GET_ALL_USER_LIST, async (req, res) => {
-        const { rows: users } = await dbClient.query("SELECT * from users where role <> 'SUPER_ADMIN' order by name");
-
-        return res.send(users);
+    app.get(GET_USER_LIST, async (req, res) => {
+        const { role } = req.query;
+        console.log(req);
+        let responseQuery;
+        if (role === 'all') {
+            responseQuery = await dbClient.query("SELECT * from users where role <> 'SUPER_ADMIN' order by name");
+        } else {
+            responseQuery = await dbClient.query(
+                "SELECT * from users where role <> 'SUPER_ADMIN' and role = $1 order by name",
+                [role]
+            );
+        }
+        return res.send(responseQuery.rows);
     });
 
     app.patch(PATCH_USER_DATA, async (req, res) => {
