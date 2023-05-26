@@ -40,7 +40,7 @@ class Appointmets extends Component {
 
         const options = doctors?.map((doctor) => ({ 
             value: doctor.id,
-            label: doctor.firstname || doctor.name,
+            label: `${doctor.firstname} ${doctor.secondname}` || doctor.name,
         }));
 
         return (

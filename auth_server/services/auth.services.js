@@ -70,10 +70,14 @@ export const registerUser = async (req, res, next) => {
 }
 
 export const registerUserFromAdminPanel = async (req, res, next) => {
-  const username = req.body?.username;
-  const email = req.body?.email;
-  const password = req.body?.password;
-  const role = req.body?.role;
+  const {
+    username,
+    email,
+    password,
+    role,
+    firstname,
+    secondname,
+  } = req.body;
 
   if (!username || !email || !password) {
     return res
@@ -106,6 +110,8 @@ export const registerUserFromAdminPanel = async (req, res, next) => {
       username,
       email,
       role,
+      firstname,
+      secondname,
     });
 
     return res.sendStatus(200);

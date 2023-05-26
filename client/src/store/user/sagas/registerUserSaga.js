@@ -14,6 +14,8 @@ export default function* registerUserSaga(action) {
         role,
         navigate,
         api,
+        firstname = undefined,
+        secondname = undefined,
     } = action.payload;
 
     if (!role) {
@@ -23,7 +25,9 @@ export default function* registerUserSaga(action) {
             payload: {
                 username,
                 email,
-                password
+                password,
+                firstname,
+                secondname,
             },
             actions: registerUserActions,
         });
@@ -37,7 +41,9 @@ export default function* registerUserSaga(action) {
                 username,
                 email,
                 password,
-                role
+                role,
+                firstname,
+                secondname,
             },
             headers: {
                 Authorization: `Bearer ${token}`,
