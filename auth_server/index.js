@@ -3,12 +3,14 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import mongoose from 'mongoose';
+import argon2 from 'argon2';
 import {
   ALLOWED_ORIGIN,
   MONGODB_URI,
 } from './config/index.js';
 import { setSecurityHeaders } from './middlewares/index.js';
 import router from './routes/app.routes.js';
+import User from './models/User.js';
 
 const app = express();
 app.use(
@@ -29,6 +31,17 @@ try {
     useUnifiedTopology: true
   })
   console.log('🚀 Connected to mongoose DB');
+  const [existingUser] = await User.find({role: 'SUPER_ADMIN'});
+  if (!existingUser) {
+    const hashedPassword = await argon2.hash('1234');
+    await User.create({
+      username: 'Alex6',
+      email: '1234@mail.ru',
+      password: hashedPassword,
+      role: 'SUPER_ADMIN',
+    });
+    console.log('user was added');
+  }
 } catch (e) {
   console.log(`Error while connecting to mongoose DB: ${e}`);
 }

@@ -11,12 +11,14 @@
     "antd": "^5.1.0",
     "axios": "^1.2.1",
     "http-proxy-middleware": "^2.0.6",
+    "memoize-one": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router": "^6.4.5",
     "react-router-dom": "^6.4.5",
-    "redux-saga": "^1.2.2"
+    "redux-saga": "^1.2.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
@@ -27,6 +29,7 @@
     "@babel/register": "^7.18.9",
     "babel-loader": "^9.1.0",
     "css-loader": "^6.7.3",
+    "dayjs": "^1.11.8",
     "eslint": "^8.29.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",

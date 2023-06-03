@@ -9,7 +9,6 @@ import axios from 'axios';
 export default function userListController(app, dbClient) {
     app.get(GET_USER_LIST, async (req, res) => {
         const { role } = req.query;
-        console.log(req);
         let responseQuery;
         if (role === 'all') {
             responseQuery = await dbClient.query("SELECT * from users where role <> 'SUPER_ADMIN' order by name");

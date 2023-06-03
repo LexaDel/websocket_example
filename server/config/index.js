@@ -14,3 +14,6 @@ const {
       password: POSTGRES_DB_PASSWORD,
       port: POSTGRES_DB_PORT,
   };
+
+  export const INTERVALS = [10, 15, 20];
+  

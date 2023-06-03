@@ -9,6 +9,7 @@ import {
 import pg from 'pg';
 import userController from './controllers/userController.js';
 import userListController from './controllers/userListController.js';
+import worktimeController from './controllers/worktimeController.js';
 
 const app = express();
 app.use(
@@ -26,6 +27,7 @@ const client = new pg.Client(CONFIG_POSTGRES_DB);
 
 userController(app, client);
 userListController(app, client);
+worktimeController(app, client);
 
 app.use((err, req, res) => {
   console.log(`${err.message || JSON.stringify(err, null, 2)}`);

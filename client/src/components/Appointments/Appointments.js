@@ -1,5 +1,16 @@
 import { ROLES } from "../../dictionaries/roles";
-import { Button, Calendar, Col, Modal, Row, Select, Spin } from "antd";
+import { getExcludedTime } from "../../utils/dates";
+import RegisterWorktimeModalContainer from "../RegisterWorktimeModal/RegisterWorktimeModal.container";
+import { 
+    Button, 
+    Calendar, 
+    Col, 
+    DatePicker, 
+    Modal, 
+    Row, 
+    Select, 
+    Spin
+ } from "antd";
 import ButtonGroup from "antd/es/button/button-group";
 import { Component } from "react";
 import { PropTypes } from 'prop-types';
@@ -15,6 +26,7 @@ class Appointmets extends Component {
 
         this.state = {
             isModalOpen: false,
+            isModalRegisterWorktimeOpen: false,
         };
     }
     
@@ -22,17 +34,39 @@ class Appointmets extends Component {
         this.setState({ isModalOpen: true });
     }
 
+    handleRegisterWorktime = () => {
+        this.setState({ isModalRegisterWorktimeOpen: true });
+    }
+ 
     handleOk = () => {
-        this.setState({ isModalOpen: false });
+        this.setState({ 
+            isModalOpen: false,
+            isModalRegisterWorktimeOpen: false,
+        });
     }
 
     handleCancel = () => {
-        this.setState({ isModalOpen: false });
+        this.setState({ 
+            isModalOpen: false,
+            isModalRegisterWorktimeOpen: false,
+        });
+    }
+
+    disableTime = () => {
+        // с бека придет время работы врача
+        // так же придут записи
+        // надо сначала оставить только рабочее время 
+        // далее надо исключить время на которое стоят записи
+
+        // придет в формате range[begin,end]
+        const workTime = [10,13];
+        console.log(getExcludedTime(workTime));
+        return getExcludedTime(workTime);
     }
 
     render() {
         const { status, doctors } = this.props;
-        const { isModalOpen } = this.state;
+        const { isModalOpen, isModalRegisterWorktimeOpen } = this.state;
 
         if(!status.success) {
             return <Spin size="large" />;
@@ -50,6 +84,7 @@ class Appointmets extends Component {
                         <ButtonGroup>
                             <Button onClick={this.handleMakeAppointment}>Make an appointment</Button>
                             <Button>Remove appointment</Button>
+                            <Button onClick={this.handleRegisterWorktime}>Register worktime</Button>
                         </ButtonGroup>
                     </Col> 
                     <Col flex="auto">
@@ -72,7 +107,24 @@ class Appointmets extends Component {
                         filterOption={(input, option) => (option?.label ?? '').includes(input)}
                         options={options}
                     />
+                    <DatePicker
+                        format="YYYY-MM-DD HH:mm"
+                        disabledTime={() => ({
+                            disabledHours: this.disableTime,
+                            disabledMinutes: () => {
+                                return [0,1,30, 31]
+                            }
+                        })}
+                        showTime={{
+                            hideDisabledOptions: true,
+                        }}
+                    />
                 </Modal>
+                <RegisterWorktimeModalContainer
+                    isModalOpen={isModalRegisterWorktimeOpen}
+                    handleOk={this.handleOk}
+                    handleCancel={this.handleCancel}
+                />
             </div>     
         );
     }

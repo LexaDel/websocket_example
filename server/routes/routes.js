@@ -4,3 +4,7 @@ export const USER_INFO = `${baseUrl}/user/:userId`;
 export const GET_USER_LIST = `${baseUrl}/users`;
 export const PATCH_USER_DATA = `${baseUrl}/users/:userId`;
 export const DELETE_USER = `${baseUrl}/users/:userId`;
+
+export const GET_INTERVALS = `${baseUrl}/intervals`;
+export const ADD_WORKTIME = `${baseUrl}/worktimes`
+export const REMOVE_WORKTIME = `${baseUrl}/worktime/:worktimeId`

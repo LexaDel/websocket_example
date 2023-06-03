@@ -14,4 +14,7 @@ export const API_ROUTES = {
     GET_USER_LIST: `${baseUrl}/users`,
     PATCH_USER_INFO: `${baseUrl}/users/:userId`,
     DELETE_USER: `${baseUrl}/users/:userId`,
+
+    GET_INTERVALS: `${baseUrl}/intervals`,
+    SAVE_WORKTIMES: `${baseUrl}/worktimes`,
 }
