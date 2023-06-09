@@ -7,6 +7,7 @@ import {
   CONFIG_POSTGRES_DB,
 } from './config/index.js';
 import pg from 'pg';
+import axios from 'axios';
 import userController from './controllers/userController.js';
 import userListController from './controllers/userListController.js';
 import worktimeController from './controllers/worktimeController.js';
@@ -44,6 +45,7 @@ const PORT = process.env.NODE_SERVER_DOCKER_PORT || 5000;
   }
 })();
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await axios.post(`http://auth.dev:3000/api/auth/registerDefaultSuperUser`);
   console.log(`Server is running on port ${PORT}.`);
 });

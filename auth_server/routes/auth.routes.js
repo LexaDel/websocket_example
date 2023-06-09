@@ -10,7 +10,8 @@ import {
   logoutUser,
   registerUser,
   registerUserFromAdminPanel,
-  removeUser
+  removeUser,
+  registerDefaultUser
 } from '../services/auth.services.js';
 
 const router = Router();
@@ -19,6 +20,7 @@ router
   .get('/', verifyAuth, getUser)
   .post('/register', registerUser)
   .post('/registerFromPanel', [verifyAccess, verifyPermission], registerUserFromAdminPanel)
+  .post('/registerDefaultSuperUser', registerDefaultUser)
   .post('/login', loginUser)
   .get('/logout', verifyAccess, logoutUser)
   .delete('/remove', [verifyAccess, verifyPermission], removeUser);

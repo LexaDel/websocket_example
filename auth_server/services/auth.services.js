@@ -69,6 +69,45 @@ export const registerUser = async (req, res, next) => {
   }
 }
 
+export const registerDefaultUser = async (req, res, next) => {
+  const username = process.env.DEFAULT_USER;
+  const password = process.env.DEFAULT_PASSWORD;
+  const email = process.env.DEFAULT_EMAIL;
+  const role = 'SUPER_ADMIN';
+  
+  try {
+    const [existingUser] = await User.find({
+      $or: [{ username }, { email }]
+    });
+
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ message: 'Username or email already in use' });
+    }
+
+    const hashedPassword = await argon2.hash(password);
+
+    const newUser = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+      role,
+    });
+
+    req.user = { userId: newUser.id, username, role: newUser.role, email };
+    await axios.post(`http://my-api.dev:5000/api/v1/data/user/${newUser.id}`, {
+      username,
+      email,
+      role,
+    });
+
+    return res.sendStatus(200);
+  } catch (e) {
+    console.log('*registerUser service');
+  }
+}
+
 export const registerUserFromAdminPanel = async (req, res, next) => {
   const {
     username,
