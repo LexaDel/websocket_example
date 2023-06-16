@@ -17,7 +17,10 @@ class WorktimeItem extends PureComponent {
         super(props);
 
         this.state = {
-            selectDates: [dayjs(), dayjs()],
+            selectDates: [
+                dayjs().hour(0).minute(0).second(0),
+                dayjs().hour(0).minute(0).second(0),
+            ],
         };
     }
 
@@ -30,6 +33,17 @@ class WorktimeItem extends PureComponent {
     disableWorktime = () => {
         const workTime = [8,20];
         return getExcludedTime(workTime);
+    }
+
+    disabledMinutes = () => {
+        const result = [];
+        for (let i = 0; i < 60; i++) {
+            if (i % 10 !== 0) {
+                result.push(i);
+            }
+        }
+        
+        return result;
     }
 
     getIntervalOptions = memoize((intervals) => intervals.map((interval) => ({
@@ -87,6 +101,7 @@ class WorktimeItem extends PureComponent {
                     value={selectDates}
                     disabledTime={() => ({
                         disabledHours: this.disableWorktime,
+                        disabledMinutes: this.disabledMinutes,
                     })}
                     showTime={{
                         hideDisabledOptions: true,
